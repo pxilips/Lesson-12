@@ -22,7 +22,7 @@ pipeline {
         stage("Second step") {
             steps {
                 sh '''#!/bin/bash
-			sudo systemctl start apache2.service'''
+			sudo -S systemctl start apache2.service'''
             }
         }
     }

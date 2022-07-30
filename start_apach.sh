@@ -1,10 +1,37 @@
-#!/bin/bash
-pidfile="/var/run/apache2/apache2.pid"
-name="apache2"
-if test -f "$pidfile"
-then
-kill -15 $(cat $pidfile)
-echo "Process $name $(cat $pidfile) stopped"
-else
-echo "Process $name is not running, nothing to do"
-fi
+#!groovy
+// Check ub1 properties
+properties([disableConcurrentBuilds()])  //Запретить одновременные сборки (для этой сборки)
+
+pipeline {
+    agent any //выполнять на любом агенте
+        stages {
+        stage("First step") {
+            steps {
+                sh '''#!/bin/bash
+				pidfile="/var/run/apache2/apache2.pid"
+				name="apache2"
+				if test -f "$pidfile"
+				then
+				kill -15 $(cat $pidfile)
+				echo "Process $name $(cat $pidfile) stopped"
+				else
+				echo "Process $name is not running, nothing to do"
+				fi'''
+            }
+        }
+        stage("Second step") {
+            steps {
+                sh '''#!/bin/bash
+				pidfile="/var/run/apache2/apache2.pid"
+				name="apache2"
+				if test -f "$pidfile"
+				then
+				sudo systemctl start apache2.service
+				echo "Process $name $(cat $pidfile) stopped"
+				else
+				echo "Process $name is running"
+				fi'''
+            }
+        }
+    }
+}

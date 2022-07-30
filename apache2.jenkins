@@ -12,7 +12,7 @@ pipeline {
 				name="apache2"
 				if test -f "$pidfile"
 				then
-				kill -15 $(cat $pidfile)
+				sudo kill -15 $(cat $pidfile)
 				echo "Process $name $(cat $pidfile) stopped"
 				else
 				echo "Process $name is not running, nothing to do"

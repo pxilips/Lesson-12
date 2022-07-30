@@ -21,7 +21,8 @@ pipeline {
         }
         stage("Second step") {
             steps {
-                sh '''sudo systemctl start apache2.service'''
+                sh '''#!/bin/bash
+			sudo systemctl start apache2.service'''
             }
         }
     }

@@ -13,9 +13,6 @@ pipeline {
 				if test -f "$pidfile"
 				then
 				sudo kill -15 $(cat $pidfile)
-				echo "Process $name $(cat $pidfile) stopped"
-				else
-				echo "Process $name is not running, nothing to do"
 				fi'''
             }
         }
@@ -27,9 +24,6 @@ pipeline {
 				if test -f "$pidfile"
 				then
 				sudo systemctl start apache2.service
-				echo "Process $name $(cat $pidfile) stopped"
-				else
-				echo "Process $name is running"
 				fi'''
             }
         }

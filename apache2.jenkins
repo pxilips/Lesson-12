@@ -21,7 +21,16 @@ pipeline {
         }
         stage("Second step") {
             steps {
-                sh 'sudo systemctl start apache2.service'
+                sh '''#!/bin/bash
+				pidfile="/var/run/apache2/apache2.pid"
+				name="apache2"
+				if test -f "$pidfile"
+				then
+				sudo systemctl start apache2.service
+				echo "Process $name $(cat $pidfile) stopped"
+				else
+				echo "Process $name is not running, nothing to do"
+				fi'''
             }
         }
     }

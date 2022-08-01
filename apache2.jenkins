@@ -8,7 +8,7 @@ pipeline {
         stage("First step") {
             steps {
                 sh '''#!/bin/bash
-				sudo -S
+				sudo -i
 				pidfile="/var/run/apache2/apache2.pid"
 				name="apache2"
 				if test -f "$pidfile"
@@ -22,7 +22,7 @@ pipeline {
         }
         stage("Second step") {
             steps {
-                sh '''sudo -S 
+                sh '''sudo -i 
 			systemctl start apache2.service'''
             }
         }
